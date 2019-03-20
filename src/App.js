@@ -32,7 +32,7 @@ class App extends Component {
 
   state = {
     spacing: 40,
-    justify: "flex-start"
+    justify: "center"
   }
 
 
