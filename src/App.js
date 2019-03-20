@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles';
 import { deepPurple, pink } from '@material-ui/core/colors';
 import AppBar from './components/AppBar';
-import Grid from '@material-ui/core/Grid';
-import Grow from '@material-ui/core/Grow';
-
 import { getNotes } from './redux/actionCreators';
-import Note from './components/Note';
-import AddNewButton from './components/AddNewButton';
+import PadView from './components/PadView';
+import NoteView from './components/NoteView';
 
 const theme = createMuiTheme({
   palette: {
@@ -21,7 +19,7 @@ const theme = createMuiTheme({
   },
 });
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     flexGrow: 1,
     paddingTop: 25
@@ -41,36 +39,22 @@ class App extends Component {
   }
 
   render() {
-    
-    const { classes } = this.props;
-    const { spacing } = this.state;
-
     return (
+    <BrowserRouter>
       <div className="App">
         <MuiThemeProvider theme={theme}>
           <header className="App-header">
             <AppBar/>
           </header>
           <main>
-            <Grid container className={classes.root} spacing={16}>
-                <Grid item xs={12}>
-                    <Grid container className={classes.demo} justify={this.state.justify} spacing={Number(spacing)}>
-                      {this.props.notes.map((note) => {
-                        return (
-                          <Grow key={note._id} in={true} style={{ transitionDelay: 100 }}>
-                            <Grid key={note._id} item>
-                                <Note note={note}/>     
-                            </Grid>
-                          </Grow>
-                        )
-                      })}
-                    </Grid>
-                </Grid>
-            </Grid>    
+            <Switch>
+              <Route exact path="/" component={PadView} />
+              <Route path="/pads/:pad" component={NoteView} />
+            </Switch>
           </main>
-          <AddNewButton/>
         </MuiThemeProvider>
-    </div>
+      </div>
+    </BrowserRouter>
     );
   }
 }

@@ -1,4 +1,5 @@
 const defaultState = {
+    pads: [],
     notes: []
 }
 
