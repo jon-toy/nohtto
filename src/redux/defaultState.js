@@ -1,6 +1,7 @@
 const defaultState = {
     pads: [],
-    notes: []
+    notes: [],
+    currentPad: ''
 }
 
 export default defaultState;

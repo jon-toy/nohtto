@@ -8,6 +8,7 @@
     "@material-ui/lab": "^3.0.0-alpha.30",
     "axios": "^0.18.0",
     "ionicons": "^4.5.5",
+    "material-ui-chip-input": "^1.0.0-beta.15",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-ionicons": "^3.0.1",

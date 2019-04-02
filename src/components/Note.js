@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,8 +11,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import ShareIcon from '@material-ui/icons/Share';
 import React from 'react';
 import NoteContent from './NoteContent';
+import { deleteNote } from '../redux/actionCreators';
 
-const styles = theme => ({
+const styles = () => ({
   card: {
     width: 350,
   },
@@ -21,13 +23,14 @@ const styles = theme => ({
 });
 
 function Note(props) {
-  const { classes, note } = props;
+  const { classes, note, padId } = props;
+  const tags = note.tags.length <= 0 ? '' : 'Tags: ' + note.tags.map((tag) => tag.description).join(', ');
 
   return (
     <Card className={classes.card}>
       <CardHeader
         title={note.meta.title}
-        subheader={note.meta.dateModified}
+        subheader={tags}
       />
       <CardContent>
         <Typography component="p">
@@ -44,7 +47,7 @@ function Note(props) {
         <IconButton aria-label="Edit">
           <EditIcon />
         </IconButton>
-        <IconButton aria-label="Delete">
+        <IconButton aria-label="Delete" onClick={() => props.deleteNote(note._id, padId)}>
           <DeleteIcon />
         </IconButton>
       </CardActions>
@@ -59,4 +62,16 @@ function Note(props) {
   );
 }
 
-export default withStyles(styles)(Note);
+function mapStateToProps(state) {
+  return {
+    currentPad: state.currentPad
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    deleteNote: (noteId, padId) => dispatch(deleteNote(noteId, padId))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Note));

@@ -9,6 +9,7 @@ import LogoTwitch from 'react-ionicons/lib/LogoTwitch'
 import LogoTwitter from 'react-ionicons/lib/LogoTwitter'
 import MdImage from 'react-ionicons/lib/MdImage'
 import IosPaperOutline from 'react-ionicons/lib/IosPaperOutline'
+import { NOTE_TYPE_TEXT, NOTE_TYPE_IMAGE, NOTE_TYPE_TWITTER, NOTE_TYPE_TWITCH, NOTE_TYPE_YOUTUBE } from '../constants';
 
 const styles = theme => ({
   root: {
@@ -22,14 +23,14 @@ const styles = theme => ({
 });
 
 const actions = [ 
-  { icon: <IosPaperOutline/>, name: 'Text', url: '/new/text'},
-  { icon: <MdImage/>, name: 'Image', url: '/new/image'},
-  { icon: <LogoTwitter/>, name: 'Tweet', url: '/new/twitter'},
-  { icon: <LogoTwitch/>, name: 'Twitch', url: '/new/twitch'},
-  { icon: <LogoYoutube/>, name: 'YouTube', url: '/new/youtube'},
+  { icon: <IosPaperOutline/>, name: 'Text', url: '/new/'+NOTE_TYPE_TEXT},
+  { icon: <MdImage/>, name: 'Image', url: '/new/'+NOTE_TYPE_IMAGE},
+  { icon: <LogoTwitter/>, name: 'Tweet', url: '/new/'+NOTE_TYPE_TWITTER},
+  { icon: <LogoTwitch/>, name: 'Twitch', url: '/new/'+NOTE_TYPE_TWITCH},
+  { icon: <LogoYoutube/>, name: 'YouTube', url: '/new/'+NOTE_TYPE_YOUTUBE},
 ];
 
-class AddNewButton extends React.Component {
+class CreateNewNoteButton extends React.Component {
   state = {
     open: false,
     hidden: false,
@@ -43,11 +44,13 @@ class AddNewButton extends React.Component {
   };
 
   handleClick = (action) => {
-      if ( action ) {
+      if (action) {
+        const url = '/pads/' + this.props.pad + action.url;
+        console.log(url);
         this.setState(state => ({
           open: !state.open,
           redirect: true,
-          url: action.url
+          url: url
         }));
       }
       else {
@@ -114,4 +117,4 @@ class AddNewButton extends React.Component {
   }
 }
 
-export default withStyles(styles)(AddNewButton);
+export default withStyles(styles)(CreateNewNoteButton);

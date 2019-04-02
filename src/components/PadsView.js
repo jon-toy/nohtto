@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 
 import { getPads } from '../redux/actionCreators';
 import Pad from './Pad';
-import AddNewButton from './AddNewButton';
 
 const styles = () => ({
   root: {
@@ -54,7 +53,6 @@ class PadView extends Component {
                 </Grid>
             </Grid>    
           </main>
-          <AddNewButton/>
         </div>
     );
   }

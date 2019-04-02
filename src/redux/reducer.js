@@ -9,17 +9,20 @@ import {
 export default function Reducer(state = {}, action = {}) {
     switch (action.type) {
         case GET_PADS:
-            let pads = action.payload;
+            const pads = action.payload;
             return {...state, pads}
         case GET_NOTES: 
             let notes = action.payload;
-            return {...state, notes};
+            const currentPad = action.pad;
+            return {...state, notes, currentPad};
         case CREATE_NOTE:
-            return state;
+            return {...state, notes: [...state.notes, action.payload]};
         case EDIT_NOTE:
             return state;
         case DELETE_NOTE:
-            return state;
+            const id = action.payload._id;
+            let newNotes = [...state.notes.filter(note => note._id !== id)];
+            return {...state, notes: newNotes};
         default:
             return state;
     }

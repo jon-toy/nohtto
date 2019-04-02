@@ -24,19 +24,22 @@ export function getNotes(padId) {
         return Promise.all([axios.get(`${API_URL}/pads/${padId}/notes`)]).then(([response]) => {
             dispatch({
                 type: GET_NOTES,
-                payload: response.data
+                payload: response.data,
+                pad: padId
             });
         });
     };
 }
 
-export function createNote(newNote, padId) {
+export function createNote(newNote, padId, callback) {
     return dispatch => {    
         return Promise.all([axios.post(`${API_URL}/pads/${padId}/notes`, newNote)]).then(([response]) => {
             dispatch({
                 type: CREATE_NOTE,
                 payload: response.data
             });
+            
+            if (callback) callback();
         });
     };
 }

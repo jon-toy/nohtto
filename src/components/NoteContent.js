@@ -1,6 +1,5 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import ResponsiveEmbed from 'react-responsive-embed';
 import {Tweet} from 'react-twitter-widgets';
 import { 
@@ -30,10 +29,10 @@ function NoteContent(props) {
             <img alt={note.meta.title} src={contentBody.imageUrl} className={props.classes.image}/>
         );
     else if (type === NOTE_TYPE_TEXT)
-        return (
-            <Typography paragraph>
-                { note.content.contentBody.text }
-            </Typography>
+        return (<span/>
+            // <Typography paragraph>
+            //     { note.content.contentBody.text }
+            // </Typography>
         );
     else if (type === NOTE_TYPE_TWITCH)
         return (

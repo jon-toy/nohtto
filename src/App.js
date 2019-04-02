@@ -6,8 +6,10 @@ import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/
 import { deepPurple, pink } from '@material-ui/core/colors';
 import AppBar from './components/AppBar';
 import { getNotes } from './redux/actionCreators';
-import PadView from './components/PadView';
-import NoteView from './components/NoteView';
+import PadsView from './components/PadsView';
+import NotesView from './components/NotesView';
+import CreateNote from './components/CreateNote';
+import history from './router/history';
 
 const theme = createMuiTheme({
   palette: {
@@ -40,7 +42,7 @@ class App extends Component {
 
   render() {
     return (
-    <BrowserRouter>
+    <BrowserRouter history={history}>
       <div className="App">
         <MuiThemeProvider theme={theme}>
           <header className="App-header">
@@ -48,8 +50,9 @@ class App extends Component {
           </header>
           <main>
             <Switch>
-              <Route exact path="/" component={PadView} />
-              <Route path="/pads/:pad" component={NoteView} />
+              <Route exact path="/" component={PadsView} />
+              <Route path="/pads/:pad/new/:noteType" component={CreateNote} />
+              <Route path="/pads/:pad" component={NotesView} />
             </Switch>
           </main>
         </MuiThemeProvider>
